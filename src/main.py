@@ -5,10 +5,12 @@ import pygame
 screen_WIDTH = 500
 screen_HEIGHT = 600
 
-def drawOnScreen(screen):
-    screen.fill((255,255,255))
+class drawOnScreen:
+    def __init__(self, screen):
+        self.screen = screen
 
-    pygame.display.update()
+    def circle(self, x, y, color, radius):
+        pygame.draw.circle(self.screen, color, (x,y), radius)
 
 def pygameInit():#used to initialize pygame library
     pygame.init()
@@ -17,14 +19,17 @@ def pygameInit():#used to initialize pygame library
     return screen
 
 def gameloop(running):
+
     screen = pygameInit()
+    screenUpdater = drawOnScreen(screen)
+
     while running == True:
-        drawOnScreen(screen)
+        screenUpdater.circle(50, 60, (255,255,0), 50)#x, y, color and radius
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
-
+        pygame.display.update()
 if __name__ == "__main__":
     running = True
     gameloop(running)
